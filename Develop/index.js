@@ -11,7 +11,7 @@ const promptUser = () => {
     {
       type: "input",
       name: "title",
-      message: "What is the name of your project?",
+      message: "What is the name of your project? (required)",
       validate: (titleInput) => {
         if (titleInput) {
           return true;
@@ -24,7 +24,7 @@ const promptUser = () => {
     {
       type: "input",
       name: "description",
-      message: "Please provide a description of your project.",
+      message: "Please provide a description of your project (required):",
       validate: (descriptionInput) => {
         if (descriptionInput) {
           return true;
@@ -36,55 +36,63 @@ const promptUser = () => {
     },
     {
       type: "input",
-      name: "repoUrl",
-      message: "What is the URL for your repository?",
-      validate: (repoInput) => {
-        if (repoInput) {
+      name: "userName",
+      message: "What is your GitHub username? (required)",
+      validate: (userNameInput) => {
+        if (userNameInput) {
           return true;
         } else {
-          console.log("Please enter the URL for your repository.");
+          console.log("Please enter your GitHub username.");
           return false;
         }
       },
     },
     {
       type: "input",
-      name: "gitPagesUrl",
-      message: "What is the URL for your project's GitHub Page?",
-      validate: (gitPageInput) => {
-        if (gitPageInput) {
+      name: "email",
+      message: "What is your email address? (required)",
+      validate: (userNameInput) => {
+        if (userNameInput) {
           return true;
         } else {
-          console.log("Please enter the URL for your's project's GitHub Page.");
+          console.log("Please enter your email address.");
           return false;
         }
       },
     },
     {
+      type: "input",
+      name: "installation",
+      message: "Please provide installation instructions for your project:",
+    },
+    {
+      type: "input",
+      name: "usage",
+      message: "Please provide usage information for your project:",
+    },
+    {
+      type: "input",
+      name: "contributing",
+      message: "Please provide contribution guidelines for your project:",
+    },
+    {
+      type: "input",
+      name: "tests",
+      message: "Please provide testing instructions for your project:",
+    },
+    {
       type: "list",
       name: "license",
-      message: "What type of license are you using for your project?",
-      choices: ["Slack", "Text", "Email", "Phone"], // to be updated
+      message: "What license type are you using for your project?",
+      choices: ["MIT", "GPLv2", "Apache", "Mozilla", "BSD 3-clause"],
     },
   ]);
-};
-
-const promptReadMe = (readMeData) => {
-  if (!readMeData.projects) {
-    //readMeData.projects = [];
-  }
-  console.log(`
-        ========================
-        Create a new README file
-        ========================
-    `);
-    return readMeData;
 };
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, readMeFile) {
   return new Promise((resolve, reject) => {
-    fs.writeFile("./dist/README.md", readMeFile, (err) => {
+    fs.writeFile("./dist/" + fileName + "-README.md", readMeFile, (err) => {
       if (err) {
         reject(err);
         return;
@@ -99,13 +107,14 @@ function writeToFile(fileName, readMeFile) {
 
 // TODO: Create a function to initialize app
 function init() {
+  let fileName = "";
   promptUser()
-    .then(promptReadMe)
-    .then(readMeData => {
+    .then((readMeData) => {
+      fileName = readMeData.title;
       return generateMarkdown(readMeData);
     })
-    .then(readMeFile => {
-      return writeToFile("title",readMeFile);
+    .then((readMeFile) => {
+      return writeToFile(fileName, readMeFile);
     })
     .catch((err) => {
       console.log(err);
