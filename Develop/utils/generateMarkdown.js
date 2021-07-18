@@ -35,26 +35,13 @@ const licenseInfo = [
 // If there is no license, return an empty string
 function renderLicenseBadge(licenseInput) {
   let badge = "";
-  console.log("renderlicensebadge " + licenseInput);
   if (!licenseInput) {
-    console.log("license falsy");
   } else {
     licenseInfo.forEach((item) => {
       if (item.license === licenseInput) {
-        console.log("item badge: " + item.badge);
         badge = item.badge;
       }
     });
-    /*for (let i = 0; i < licenseInfo.length; i++) {
-      console.log("licence: " + license + " licenseInfo: " + license);
-      if (license == licenseInfo[i].license) {
-        console.log(licenseInfo.badge);
-        return licenseInfo.badge;
-      } else {
-        console.log("return blank");
-        return "";
-      }
-    }*/
   }
   return badge;
 }
@@ -63,13 +50,10 @@ function renderLicenseBadge(licenseInput) {
 // If there is no license, return an empty string
 function renderLicenseLink(licenseInput) {
   let link = "";
-  console.log("renderlicenselink " + licenseInput);
   if (!licenseInput) {
-    console.log("license falsy");
   } else {
     licenseInfo.forEach((item) => {
       if (item.license === licenseInput) {
-        console.log("item link: " + item.link);
         link = item.link;
       }
     });
@@ -80,12 +64,10 @@ function renderLicenseLink(licenseInput) {
 // TODO: Create a function that returns the license section of README
 // If there is no license, return an empty string
 function renderLicenseSection(license) {
-  console.log("renderlicensesection " + license);
   if (!license) {
     return "";
   } else {
-    return `This project is covered under the ${license} license type.
-  ${renderLicenseBadge(license)}
+    return `This project is covered under the ${license} ${renderLicenseBadge(license)} license type.\n
   For more information: ${renderLicenseLink(license)}`;
   }
 }

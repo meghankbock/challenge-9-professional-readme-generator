@@ -81,7 +81,7 @@ const questions = [
     type: "list",
     name: "license",
     message: "What license type are you using for your project?",
-    choices: ["MIT", "GPLv2", "Apache", "Mozilla", "BSD 3-clause"],
+    choices: ["MIT", "GPLv2", "Apache 2.0", "Mozilla", "BSD 3-clause"],
   },
 ];
 
