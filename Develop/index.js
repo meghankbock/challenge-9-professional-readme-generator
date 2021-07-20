@@ -107,6 +107,7 @@ function init() {
   inquirer.prompt(questions)
     .then((userInput) => {
       fileName = userInput.title;
+      fileName = fileName.split(' ').join('-');
       return generateMarkdown(userInput);
     })
     .then((readMeFile) => {
